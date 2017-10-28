@@ -1,0 +1,75 @@
+<div class="form-inline col-md-12" style="padding:10px;">
+  <h3>食材資材の新規登録
+    <a href="/foods/new">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true">
+      </span>
+    </a>
+  </h3>
+</div>
+
+
+<div class="col-xs-12 col-md-12">
+  <%= form_tag Food, :method => 'get' do %>
+    <div class="col-xs-3 col-md-2">
+      <p>食材名：</p>
+      <%= text_field_tag :name, params[:name], class:"form-control" %>
+    </div>
+    <div class="col-xs-3 col-md-2">
+      <p>発注書名：</p>
+      <%= text_field_tag :order_name, params[:order_name], class:"form-control" %>
+    </div>
+    <div class="col-xs-3 col-md-2">
+      <p>管理コード：</p>
+      <%= text_field_tag :management_code, params[:management_code], class:"form-control" %>
+    </div>
+    <div class="col-xs-3 col-md-1">
+      <p>終売：</p>
+      <%= select :sales_end, :value, [["販売のみ", 0], ["終売のみ", 1]], {include_blank: true},class:"form-control" %>
+    </div>
+    <div class="kensaku form-group col-md-2">
+      <p>　</p>
+      　<%= submit_tag "検索" ,class:"btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+<div>
+  <div class="col-md-12" style="padding:10px;">
+    <div class="col-md-2">食材</div>
+    <div class="col-md-2">発注書名</div>
+    <div class="col-md-1">計上量</div>
+    <div class="col-md-1">単位</div>
+    <div class="col-md-1">計上価格(円)</div>
+    <div class="col-md-1">原価(円)</div>
+    <div class="col-md-1">カテゴリー</div>
+    <div class="col-md-1">仕入先</div>
+    <div class="col-md-1">不使用</div>
+    <div class="col-md-1">使用メニュー</div>
+  </div>
+  <ul class='list-group' style="list-style-type: none;">
+    <% @search.each do |food| %>
+      <li class="li-active foods_li col-md-12 list-group-item"  style="cursor: pointer">
+        <div class="food_name col-md-2"><%=link_to "#{food.name}", "/foods/#{food.id}/edit", method: :get %></div>
+        <div class="col-md-2"><%= food.order_name %></div>
+        <div class="col-md-1"><%= number_with_delimiter(food.calculated_value) %></div>
+        <div class="col-md-1"><%= food.calculated_unit %></div>
+        <div class="col-md-1"><%= number_with_delimiter(food.calculated_price) %></div>
+        <div class="col-md-1">コスト</div>
+        <div class="col-md-1"><%= food.category %></div>
+        <div class="col-md-1">vendor</div>
+        <div class="col-md-1"><%= p "✔" if food.sales_end == 1 %></div>
+        <div class="col-md-1">
+
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% if @search.size == 0 then %>
+<p>該当する食材・資材が存在しません</p>
+<% end %>
+
+<br>
+
+  <%= paginate(@search) %>
+  <!-- ページネーション -->

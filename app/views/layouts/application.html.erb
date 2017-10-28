@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tomato</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'true' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'true' %> -->
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
+      </head>
+      <body>
+        <header>
+          <nav class="navbar navbar-default">
+          	<div class="container-fluid">
+          		<div class="navbar-header">
+          			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+          				<span class="sr-only">Toggle navigation</span>
+          				<span class="icon-bar"></span>
+          				<span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+          			</button>
+          			<a class="navbar-brand" href="/">tomato</a>
+          		</div>
+
+          		<div class="collapse navbar-collapse" id="navbarEexample">
+                  <% if user_signed_in? %>
+                    <ul class="nav navbar-nav">
+                      <li class="menu_li"><a href="/orders">発注</a></li>
+                      <li class="menu_li"><a href="/menus">メニュー</a></li>
+                      <li class="menu_li"><a href="/foods">食材</a></li>
+                      <li class="menu_li"><a href="/vendors">仕入先</a></li>
+                    </ul>
+                    <div class="collapse navbar-collapse navbar-right" id="navbarEexample">
+                			<ul class="nav navbar-nav">
+                        <li class="user_nav grid-6">
+                          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+                        </li>
+                      </ul>
+                    </div>
+                  <% else %>
+
+                    <div class="collapse navbar-collapse navbar-right" id="navbarEexample">
+                			<ul class="nav navbar-nav">
+                        <li class="user_nav grid-6">
+                          <%= link_to "ログイン", new_user_session_path, class: 'post' %>
+                          <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+                        </li>
+                      </ul>
+                    </div>
+                  <% end %>
+          		</div>
+          	</div>
+          </nav>
+        </header>
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, raw(msg), :id => name, :class => "alert" %>
+        <% end %>
+        <div class="all_body">
+          <%= yield %>
+        </div>
+        <div class="footer">
+
+        </div>
+      </body>
+    </html>
