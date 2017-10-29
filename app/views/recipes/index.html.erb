@@ -1,0 +1,49 @@
+<div class="form-inline col-md-12">
+  <h3>レシピの新規登録
+    <a href="/recipes/new">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true">
+      </span>
+    </a>
+  </h3>
+</div>
+
+
+<div class="col-xs-12 col-md-12" style="margin-top:20px;">
+  <%= form_tag Item, :method => 'get' do %>
+    <div class="col-xs-3 col-md-2">
+      <p>レシピ名：</p>
+      <%= text_field_tag :name, params[:name], class:"form-control" %>
+    </div>
+    <div class="kensaku form-group col-md-2">
+      <p>　</p>
+      　<%= submit_tag "検索" ,class:"btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+<div>
+  <div class="col-md-12" style="padding:10px;">
+    <div class="col-md-2">レシピ名</div>
+    <div class="col-md-2">人分</div>
+    <div class="col-md-1">カテゴリ</div>
+    <div class="col-md-1">価格</div>
+  </div>
+  <ul class='list-group' style="list-style-type: none;">
+    <% @search.each do |recipe| %>
+      <li class="li-active recipes_li col-md-12 list-group-recipe"  style="cursor: pointer">
+        <div class="recipe_name col-md-2"><%=link_to "#{recipe.name}", "/recipes/#{recipe.id}", method: :get %></div>
+        <div class="col-md-2"><%= recipe.serving_for %></div>
+        <div class="col-md-1"><%= recipe.category %></div>
+        <div class="col-md-1"><%= recipe.price %></div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% if @search.size == 0 then %>
+<p>該当するレシピが存在しません</p>
+<% end %>
+
+
+
+  <%= paginate(@search) %>
+  <!-- ページネーション -->

@@ -1,0 +1,87 @@
+<%= form_for @recipe do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <b><%= pluralize(@recipe.errors.count, "箇所") %>入力に不備があります</b>
+      <ul style="list-style:none;">
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-md-6">
+    <%= f.label :name ,'レシピ名' %><br>
+    <%= f.text_field :name, class: "form-control",style:"width:100%;" %>
+  </div>
+  <div class="form-group col-md-3">
+    <%= f.label :category ,'カテゴリー' %><br>
+    <%= f.select :category, [["メイン", "メイン"],[ "ソース", "ソース"],
+    [ "ドリンク", "ドリンク"],[ "サブ", "サブ"]],{include_blank: true}, { class: "form-control",style:"width:100%;"} %>
+  </div>
+  <div class="col-xs-12 col-md-3 form-inline">
+    <div class="col-xs-1 form-group col-md-10">
+      <%= f.label :price, "メニュー原価" %></br>
+      <%= f.text_field :price, readonly: 'readonly',class: "recipe_price form-control",style:"width:100%" %>
+    </div>
+    <div class="col-xs-1 form-group col-md-1" style="margin-top:35px; padding:0;">
+      円
+    </div>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :serving_for ,'人前' %><br>
+    <%= f.text_field :serving_for, class: "form-control",style:"width:100%;" %>
+  </div>
+
+
+  <div class="col-xs-12 col-md-6 form-group">
+    <%= f.label :memo ,'メモ' %><br>
+    <%= f.text_area :memo, style:"height:10em;width:100%;", class:"form-control" %>
+  </div>
+
+
+  <div class="item_area">
+        <div class="col-md-12" style="margin:5px;">
+          <label class="col-md-3">材料・調味料名</label>
+          <label class="col-md-1">仕入先</label>
+          <label class="col-md-1">単価</label>
+          <label class="col-md-1">分量</label>
+          <label class="col-md-1">使用価格</label>
+          <label class="col-md-1"></label>
+        </div>
+    <ul class='item_ul list-group' style="list-style-type: none;">
+    <%= f.fields_for :recipe_items do |i| %>
+      <li class="add_li_item col-md-12 list-group-item" >
+        <div class="select_item col-md-3" style="padding:3px;">
+         <%= i.select :item_id, Item.where(sales_end:0).pluck(:name, :id),{include_blank: true},
+          class:'input_select_item col-md-12'%>
+       </div>
+       <div class="vendor col-md-1">
+       </div>
+        <div class="cost_price col-md-1 form-inline">
+          <div class="cost_price_value form-group"></div><div class="form-group">　円</div>
+        </div>
+        <div class="quantity col-md-2 form-inline">
+          <%= i.text_field :quantity, class:'input_quantity form-control form-group',style:"width:140px;" %>
+          <div class="recipe_unit form-group">
+          </div>
+        </div>
+        <div class="price_used form-inline col-md-1">
+          <div class="price_used_value form-group"></div><div class="form-group">　円</div>
+        </div>
+        <div class="remove_item col-md-1">
+          <a class ="remove_btn btn btn-danger" >削除</a>
+          <%= i.check_box :_destroy,class:"destroy_items check_box form-control", style: "display:none;" %>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-12" style="margin-top:20px;">
+    <a class="add_item btn btn-primary">行を追加</a>
+  </div>
+
+  <div class="col-md-12" style="margin-bottom:20px;">
+    <input type="button" onclick="submit();" value="登録する" class="btn btn-success">
+  </div>
+<% end %>

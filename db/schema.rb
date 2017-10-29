@@ -10,23 +10,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025150538) do
+ActiveRecord::Schema.define(version: 20171029055837) do
 
-  create_table "foods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "order_name"
-    t.integer  "calculated_value"
-    t.string   "calculated_unit"
-    t.integer  "calculated_price"
+    t.integer  "regular_amount"
+    t.string   "recipe_unit"
+    t.integer  "regular_price"
     t.string   "order_unit"
-    t.float    "cost_price",       limit: 24
+    t.float    "cost_price",      limit: 24
     t.string   "category"
     t.string   "management_code"
-    t.text     "memo",             limit: 65535
+    t.text     "memo",            limit: 65535
     t.integer  "sales_end"
     t.integer  "vendor_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  create_table "menu_recipes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "menu_id"
+    t.integer  "recipe_id"
+    t.float    "quantity",   limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "menus", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "category"
+    t.integer  "sell_price"
+    t.text     "memo",       limit: 65535
+    t.float    "cost_price", limit: 24
+    t.string   "photo"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "recipe_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "recipe_id"
+    t.integer  "item_id"
+    t.float    "quantity",   limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "recipes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "category"
+    t.integer  "serving_for"
+    t.float    "price",       limit: 24
+    t.string   "photo"
+    t.text     "memo",        limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "steps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "recipe_id"
+    t.text     "step_text",  limit: 65535
+    t.string   "step_photo"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

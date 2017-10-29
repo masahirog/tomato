@@ -1,0 +1,107 @@
+<%= form_for @item do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+      <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="col-xs-12 col-md-12">
+    <div class="col-xs-12 col-md-4 form-group">
+      <%= f.label :name, "食材名" %>
+      <%= f.text_field :name, class:'form-control' %>
+    </div>
+    <div class="col-xs-12 col-md-4 form-group">
+      <%= f.label :order_name, "発注書名" %>
+      <%= f.text_field :order_name, class:'form-control' %>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <div class="col-xs-12 col-md-2 form-group">
+      <%= f.label :category, "カテゴリ" %>
+      <%= f.select :category, {野菜: "野菜", 肉: "肉"},{include_blank: true}, { class: "form-control input_category"} %>
+    </div>
+
+    <div class="col-xs-12 col-md-3 form-group">
+      <%= f.label :vendor_id, "仕入先企業" %>
+      <%= f.collection_select :vendor_id, Vendor.all, :id, :company_name, {include_blank: true}, { class: "form-control"} %>
+    </div>
+
+    <div class="col-xs-12 col-md-3 form-group">
+      <%= f.label :management_code, "管理コード" %>
+      <%= f.text_field :management_code, class:'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="order_unit col-xs-12 col-md-3 form-group">
+      <%= f.label :order_unit, "発注時の単位" %>
+      <%= f.text_field :order_unit, class: "input_order_unit  form-control",
+        autocomplete:"on", list:"unit_list" %>
+        <datalist id="unit_list">
+            <option value="kg">
+            <option value="本">
+            <option value="箱">
+            <option value="ケース">
+            <option value="パック">
+            <option value="枚">
+            <option value="缶">
+            <option value="個">
+            <option value="束">
+            <option value="匹">
+        </datalist>
+    </div>
+
+    <div class="col-xs-12 col-md-1 form-group"></div>
+    <div class="col-xs-12 col-md-4 form-group form-inline">
+      <%= f.label :regular_price, "-",class:"regular_price_label col-xs-12 col-md-12",style:"padding:0;" %>
+      <%= f.number_field :regular_price, class:'form-control calculated_price_input',style:"width:75%;", readonly: 'readonly' %>
+
+    <div class="form-group">
+      円
+    </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-12">
+    <div class="col-xs-12 col-md-3 form-group">
+      <%= f.label :recipe_unit, "レシピ上での単位" %>
+      <%= f.select :recipe_unit, {ml: "ml", g: "g", 袋: "袋",尾: "尾", 本: "本", 枚: "枚",切: "切", 個: "個"},{include_blank: true}, { class: "form-control input_recipe_unit"} %>
+    </div>
+    <div class="col-xs-12 col-md-1 form-group"></div>
+      <div class="col-xs-12 col-md-4 form-group form-inline">
+      <%= f.label :regular_amount, "-" ,class:"regular_amount_label col-xs-12 col-md-12",style:"padding:0;" %>
+      <%= f.number_field :regular_amount, class:'form-control form-group',style:"width:75%;", readonly: 'readonly' %>
+        <div class="regular_amount_unit form-group" style="font-size:18px;">
+
+        </div>
+      </div>
+    </div>
+  <div class="col-md-12">
+    <div class="col-xs-12 col-md-4 form-group form-inline">
+      <%= f.label :cost_price, "単位単価", class:"cost_unit_label col-xs-12 col-md-12",style:"padding:0;" %>
+      <%= f.text_field :cost_price, class:'form-control', readonly: 'readonly',style:"width:75%;" %>
+      <div class="form-group">
+        円
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-xs-12 col-md-8 form-group">
+      <%= f.label :memo, "メモ" %>
+      <%= f.text_area :memo, class:'form-control', style:"height:10em;" %>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class=" col-md-2 check_box form-group">
+      <%= f.label :sales_end, "使用不可" %>
+      <%= f.check_box :sales_end, class:"check_box form-control" %>
+    </div>
+  </div>
+  <div class="col-md-12 text-center" style="margin:40px 0 20px 0; ">
+    <input type="button" onclick="submit();" value="登録する" class="btn btn-success">
+  </div>
+  <% end %>

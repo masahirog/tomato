@@ -1,0 +1,45 @@
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :company_name, "企業名" %>
+    <%= @vendor.company_name %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :company_phone, "電話番号" %>
+    <%= @vendor.company_phone %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :company_fax, "FAX番号" %>
+    <%= @vendor.company_fax %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :company_mail, "メールアドレス" %>
+    <%= @vendor.company_mail %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :zip, "郵便番号" %>
+    <%= @vendor.zip %>
+  </div>
+
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :address, "住所" %>
+    <%= @vendor.address %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :staff_name, "担当者名" %>
+    <%= @vendor.staff_name %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :staff_phone, "担当者電話番号" %>
+  <%= @vendor.staff_phone %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :staff_mail, "担当者メールアドレス" %>
+  <%= @vendor.staff_mail %>
+  </div>
+  <div class="col-xs-12 col-md-12 form-group">
+    <%= label :memo, "メモ" %>
+    <%= @vendor.memo %>
+  </div>
+
+  <div>
+    <%= button_to '編集', "/vendors/#{@vendor.id}/edit", method: :get,class: "btn btn-primary",style:"margin:10px;" %>
+  </div>

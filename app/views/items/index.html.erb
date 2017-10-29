@@ -1,13 +1,15 @@
-<a href="/foods/new">
-  <div class="btn btn-default" style="padding:5px;font-size:20px;">
-    食材の新規登録
+<div class="form-inline col-md-12">
+  <h3>発注品目の新規登録
+    <a href="/items/new">
       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true">
       </span>
-  </div>
-</a>
+    </a>
+  </h3>
+</div>
+
 
 <div class="col-xs-12 col-md-12" style="margin-top:20px;">
-  <%= form_tag Food, :method => 'get' do %>
+  <%= form_tag Item, :method => 'get' do %>
     <div class="col-xs-3 col-md-2">
       <p>食材名：</p>
       <%= text_field_tag :name, params[:name], class:"form-control" %>
@@ -38,23 +40,21 @@
     <div class="col-md-1">単位</div>
     <div class="col-md-1">計上価格(円)</div>
     <div class="col-md-1">原価(円)</div>
-    <div class="col-md-1">カテゴリー</div>
     <div class="col-md-1">仕入先</div>
     <div class="col-md-1">不使用</div>
     <div class="col-md-1">使用menu</div>
   </div>
   <ul class='list-group' style="list-style-type: none;">
-    <% @search.each do |food| %>
-      <li class="li-active foods_li col-md-12 list-group-item"  style="cursor: pointer">
-        <div class="food_name col-md-2"><%=link_to "#{food.name}", "/foods/#{food.id}/edit", method: :get %></div>
-        <div class="col-md-2"><%= food.order_name %></div>
-        <div class="col-md-1"><%= number_with_delimiter(food.calculated_value) %></div>
-        <div class="col-md-1"><%= food.calculated_unit %></div>
-        <div class="col-md-1"><%= number_with_delimiter(food.calculated_price) %></div>
-        <div class="col-md-1">コスト</div>
-        <div class="col-md-1"><%= food.category %></div>
-        <div class="col-md-1">vendor</div>
-        <div class="col-md-1"><%= p "✔" if food.sales_end == 1 %></div>
+    <% @search.each do |item| %>
+      <li class="li-active items_li col-md-12 list-group-item"  style="cursor: pointer">
+        <div class="item_name col-md-2"><%=link_to "#{item.name}", "/items/#{item.id}", method: :get %></div>
+        <div class="col-md-2"><%= item.order_name %></div>
+        <div class="col-md-1"><%= number_with_delimiter(item.regular_amount) %></div>
+        <div class="col-md-1"><%= item.recipe_unit %></div>
+        <div class="col-md-1"><%= number_with_delimiter(item.regular_price) %></div>
+        <div class="col-md-1"><%= item.cost_price %></div>
+        <div class="col-md-1"><%= Vendor.find(item.vendor_id).company_name %></div>
+        <div class="col-md-1"><%= p "✔" if item.sales_end == 1 %></div>
         <div class="col-md-1">
 
         </div>

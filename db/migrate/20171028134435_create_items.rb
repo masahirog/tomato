@@ -1,11 +1,11 @@
-class CreateFoods < ActiveRecord::Migration[5.0]
+class CreateItems < ActiveRecord::Migration[5.0]
   def change
-    create_table :foods do |t|
+    create_table :items do |t|
       t.string :name
       t.string :order_name
-      t.integer :calculated_value
-      t.string :calculated_unit
-      t.integer :calculated_price
+      t.integer :regular_amount
+      t.string :recipe_unit
+      t.integer :regular_price
       t.string :order_unit
       t.float :cost_price
       t.string :category

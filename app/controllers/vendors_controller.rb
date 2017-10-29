@@ -13,6 +13,13 @@ class VendorsController < ApplicationController
       render 'new'
     end
   end
+  def show
+    @vendor = Vendor.find(params[:id])
+  end
+  def edit
+    @vendor = Vendor.find(params[:id])
+  end
+  private
   def create_update_params
     params.require(:vendor).permit(:company_name, :company_phone, :company_fax, :company_mail,
                                     :zip, :address, :staff_name, :staff_phone, :staff_mail, :memo)
