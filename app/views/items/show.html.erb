@@ -78,3 +78,7 @@
       <%= @item.sales_end %>
     </div>
   </div>
+
+  <div class="col-md-12">
+    <%= button_to '編集する', "/items/#{@item.id}/edit", method: :get,class: "btn btn-primary",style:"margin:10px;" %>
+  </div>

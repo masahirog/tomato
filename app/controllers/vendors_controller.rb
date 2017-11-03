@@ -1,4 +1,6 @@
 class VendorsController < ApplicationController
+  before_action :set_request_variant
+
   def index
     @vendors = Vendor.all
   end
@@ -20,6 +22,11 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
   end
   private
+  def set_request_variant
+    request.variant = request.device_variant
+  end
+
+
   def create_update_params
     params.require(:vendor).permit(:company_name, :company_phone, :company_fax, :company_mail,
                                     :zip, :address, :staff_name, :staff_phone, :staff_mail, :memo)

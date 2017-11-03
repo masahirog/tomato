@@ -1,0 +1,78 @@
+<div class="col-xs-12 ">
+  <div class="form-group">
+    <label class="col-xs-12">
+      レシピ名
+    </label>
+    <div class="form-group col-xs-12">
+      <%= @recipe.name %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12">
+      カテゴリ
+    </label>
+    <div class="form-group col-xs-12">
+      <%= @recipe.category %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12">
+      レシピ原価
+    </label>
+    <div class="form-group col-xs-3">
+      <%= @recipe.price %>
+    </div>
+    <div class="col-xs-3">
+      円
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12 ">
+      人前
+    </label>
+    <div class="col-xs-3 form-group">
+      <%= @recipe.serving_for %>
+    </div>
+    <div class="col-xs-3">
+      人前
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12">
+      メモ
+    </label>
+    <div class="col-xs-12 form-group">
+      <%= @recipe.memo %>
+    </div>
+  </div>
+</div>
+<div class="item_area col-xs-12">
+  <ul class='item_ul list-group' style="list-style-type: none;">
+    <% @recipe.recipe_items.each do |ri| %>
+      <li class="add_li_item col-xs-12 list-group-item">
+        <div class="select_item col-xs-6">
+          <%= ri.item.name%>
+        </div>
+        <div class="vendor col-xs-4">
+          <%= ri.item.vendor.company_name%>
+        </div>
+        <div class="serving_for col-xs-6">
+          <div class="serving_for_value col-xs-4">
+            <%= ri.quantity %>
+          </div>
+          <div class="recipe_unit col-xs-4">
+            <%= ri.item.recipe_unit %>
+          </div>
+        </div>
+        <div class="price_used col-xs-6">
+          <div class="price_used_value col-xs-4">
+            <%= ri.item.cost_price * ri.quantity %>
+          </div>
+          <div class=" col-xs-4"> 円</div>
+        </div>
+      </li>
+    <% end %>
+  <div class="col-xs-12 ">
+    <%= button_to '編集する', "/recipes/#{@recipe.id}/edit", method: :get,class: "btn btn-primary",style:"margin:10px;" %>
+  </div>
+</div>

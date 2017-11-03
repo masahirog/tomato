@@ -1,1 +1,97 @@
+<div class="col-md-12">
+  <div class="col-md-3 form-group">
+    <label class="col-md-12">
+      レシピ名
+    </label>
+    <div class="col-md-12">
+      <%= @recipe.name %>
+    </div>
+  </div>
+  <div class="col-md-2 form-group">
+    <label class="col-md-12">
+      カテゴリ
+    </label>
+    <div class="col-md-12">
+      <%= @recipe.category %>
+    </div>
+  </div>
+  <div class="col-md-2 form-inline">
+    <label class="col-md-12">
+      レシピ原価
+    </label>
+    <div class="form-group">
+      <%= @recipe.price %>
+    </div>
+    <div class="form-group">
+      円
+    </div>
+  </div>
+  <div class="serving_for form-inline  col-md-2">
+    <label class="col-md-12">
+      人前
+    </label>
+    <div class="form-group">
+      <%= @recipe.serving_for %>
+    </div>
+    <div class="form-group">
+      人前
+    </div>
+  </div>
+</div>
 
+<div class="col-md-12 form-group">
+  <div class="col-md-12">
+    <label class="col-md-12">
+      メモ
+    </label>
+    <div class="col-md-12">
+      <%= @recipe.memo %>
+    </div>
+  </div>
+</div>
+
+<div class="item_area  col-md-12">
+      <div class="col-md-12">
+        <label class="col-md-3">材料・調味料名</label>
+        <label class="col-md-2">仕入先</label>
+        <label class="col-md-1">単価</label>
+        <label class="col-md-2">分量</label>
+        <label class="col-md-2">使用価格</label>
+        <label class="col-md-1"></label>
+        <label class="col-md-1"></label>
+      </div>
+  <ul class='item_ul list-group' style="list-style-type: none;">
+    <% @recipe.recipe_items.each do |ri| %>
+      <li class="add_li_item  col-md-12 list-group-item">
+        <div class="select_item col-md-3">
+         <%= ri.item.name%>
+       </div>
+       <div class="vendor col-md-2">
+         <%= ri.item.vendor.company_name%>
+       </div>
+        <div class="cost_price col-md-1 form-inline">
+          <div class="cost_price_value form-group">
+            <%= ri.item.cost_price %>
+          </div>
+          <div class="form-group"> 円</div>
+        </div>
+        <div class="serving_for col-md-2 form-inline">
+          <div class="serving_for_value form-group">
+            <%= ri.quantity %>
+          </div>
+          <div class="recipe_unit form-group">
+            <%= ri.item.recipe_unit %>
+          </div>
+        </div>
+        <div class="price_used form-inline  col-md-2">
+          <div class="price_used_value form-group">
+            <%= ri.item.cost_price * ri.quantity %>
+          </div>
+          <div class="form-group"> 円</div>
+        </div>
+      </li>
+    <% end %>
+  <div class="col-md-12">
+    <%= button_to '編集する', "/recipes/#{@recipe.id}/edit", method: :get,class: "btn btn-primary",style:"margin:10px;"%>
+  </div>
+</div>

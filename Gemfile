@@ -64,6 +64,7 @@ gem 'fog'
 gem 'prawn'
 gem 'prawn-table'
 gem 'paper_trail'
+gem 'rack-user_agent'
 
 group :production do
   gem 'rails_12factor'

@@ -286,6 +286,9 @@ GEM
     rack (2.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-user_agent (0.5.2)
+      rack (>= 1.5)
+      woothee (>= 1.0.0)
     rails (5.0.6)
       actioncable (= 5.0.6)
       actionmailer (= 5.0.6)
@@ -373,6 +376,7 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    woothee (1.7.0)
     xml-simple (1.1.5)
 
 PLATFORMS
@@ -396,6 +400,7 @@ DEPENDENCIES
   prawn-table
   pry-rails
   puma (~> 3.0)
+  rack-user_agent
   rails (~> 5.0.2)
   rails-i18n
   rails_12factor

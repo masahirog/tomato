@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :set_request_variant
+
   def index
     @search = Recipe.search(params).page(params[:page]).per(20)
   end
@@ -48,8 +50,10 @@ class RecipesController < ApplicationController
 
 
   private
+    def set_request_variant
+      request.variant = request.device_variant
+    end
     def recipe_create_update
-      params.require(:recipe).permit(:name, :category, :serving_for, :price,
-                                     recipe_items_attributes: [:id, :quantity, :recipe_id, :item_id, :_destroy])
+      params.require(:recipe).permit(:name, :category, :serving_for, :price,:memo,recipe_items_attributes:[:id, :quantity, :item_id, :_destroy])
     end
 end

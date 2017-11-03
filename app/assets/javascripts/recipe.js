@@ -1,6 +1,5 @@
 $(function(){
   $('.all_select_recipe').select2({
-  width:"270px",
   placeholder: "レシピを選択してください"
   });
   $('.input_select_item').select2({
@@ -32,16 +31,16 @@ $(function(){
     $(".input_select_item").select2('destroy');
     $(".add_li_item").first().clone().appendTo(".item_ul");
     var last_li =$(".add_li_item").last()
-    last_li.children(".select_item").children().attr('name', "recipe[recipe_items_attributes]["+u+"][item_id]" );
+    last_li.children(".select_item").children().attr('name', "recipe[recipe_items_attributes]["+u+"][item_id]");
     last_li.children(".select_item").children().attr('id', "recipe_recipe_items_attributes_"+u+"_item_id" );
-    last_li.children(".quantity").children().attr('name', "recipe[recipe_items_attributes]["+u+"][quantity]" );
+    last_li.children(".quantity").children().attr('name', "recipe[recipe_items_attributes]["+u+"][quantity]");
     last_li.children(".quantity").children().attr('id', "recipe_recipe_items_attributes_"+u+"_quantity" );
     last_li.children(".remove_item").children(".destroy_items").attr('id', "recipe_recipe_items_attributes_"+u+"__destroy");
     last_li.children(".remove_item").children("").attr('name', "recipe[recipe_items_attributes]["+u+"][_destroy]");
     last_li.children(".select_item").children().val("");
-    $(".input_select_item").select2({width:"270px",placeholder: "材料・調味料を選択してください"});
+    $(".input_select_item").select2({placeholder: "材料・調味料を選択してください"});
     last_li.children(".cost_price").children(".cost_price_value").empty();
-    last_li.children(".vendor").empty();
+    last_li.children(".vendor").children(".vendor_value").empty();
     last_li.children(".quantity").children().val("");
     last_li.children(".price_used").children(".price_used_value").empty();
     last_li.children().children(".calculated_unit").empty();
@@ -125,11 +124,11 @@ $(function(){
   };
 
   function display_item_info(data,u){
-    quantity = $(".add_li_item").eq(u).children(".quantity").children().val();
+    quantity = $(".add_li_item").eq(u).children(".quantity").children(".input_quantity").val();
     var cost = data.item.cost_price;
     var unit = data.item.recipe_unit;
     var vendor = data.item.vendor_company_name;
-    $(".add_li_item").eq(u).children(".vendor").text(vendor);
+    $(".add_li_item").eq(u).children(".vendor").children(".vendor_value").text(vendor);
     $(".add_li_item").eq(u).children(".cost_price").children(".cost_price_value").text(cost);
     $(".add_li_item").eq(u).children().children(".recipe_unit").text(unit);
     if (isNaN(quantity) == true){

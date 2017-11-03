@@ -4,9 +4,9 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :recipe_items, allow_destroy: true, update_only: true
   has_many :menu_recipes, dependent: :destroy
   has_many :menus, through: :menu_recipes
-
   has_many :steps, dependent: :destroy
 
+  validates :name, presence: true
 
   def self.search(params)
    if params
@@ -17,5 +17,4 @@ class Recipe < ApplicationRecord
      Recipe.all
    end
   end
-
 end
